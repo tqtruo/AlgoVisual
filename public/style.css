@@ -42,10 +42,19 @@ body {
 }
 
 .sorting {
-	width: 100vw;
+	position: absolute;
+	left: 10%;
+	right: 10%;
 	height: 100vh;
-	padding-top: 50px;
+	top: 30vh;
 	color: black;
+}
+
+.bars {
+	display: inline-block;
+	margin: 0px 3px;
+	width: 4px;
+	background-color: blue;
 }
 
 .about {

@@ -45,7 +45,11 @@ class Sorting extends React.Component {
 		return (
 			<div className="sorting">
 				{this.state.numArr.map((num, index) => (
-					<div key={index}>{num}</div>
+					<div
+						className="bars"
+						key={index}
+						style={{ height: `${num * 5}px`, color: "blue" }}
+					></div>
 				))}
 			</div>
 		);
