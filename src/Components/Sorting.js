@@ -31,7 +31,7 @@ class Sorting extends React.Component {
 
 	fillArray() {
 		const newArray = [];
-		for (let i = 1; i <= 20; i++) {
+		for (let i = 1; i <= 50; i++) {
 			newArray.push(i);
 		}
 
@@ -85,7 +85,10 @@ class Sorting extends React.Component {
 				rightBarStyle.backgroundColor = "Blue";
 			}
 		}
-		bars.style.backgroundColor = "green";
+
+		Array.from(bars).forEach(bar => {
+			bar.style.backgroundColor = "green";
+		});
 	}
 
 	async bubble() {
@@ -121,14 +124,14 @@ class Sorting extends React.Component {
 				rightBarStyle.backgroundColor = "Blue";
 			}
 
-			await this.delay(100);
+			/* await this.delay(100);
 			if (
 				bars[bars.length - 1 - count].style.height ==
 				`${this.state.numArr[length - count] * 5}px`
 			) {
 				bars[bars.length - 1 - count].style.backgroundColor = "green";
 				count++;
-			}
+			} */
 		}
 	}
 
