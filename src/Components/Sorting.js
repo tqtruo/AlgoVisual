@@ -1,4 +1,5 @@
 import React from "react";
+import { mergeSort } from "./SortingAlgorithms";
 
 class Sorting extends React.Component {
 	constructor() {
@@ -40,6 +41,14 @@ class Sorting extends React.Component {
 		});
 	}
 
+	sort(arr, type) {
+		if (type == "merge") {
+			this.setState({
+				numArr: mergeSort(arr)
+			});
+		}
+	}
+
 	render() {
 		//console.log("the state: " + this.state.numArr);
 		return (
@@ -51,6 +60,9 @@ class Sorting extends React.Component {
 						style={{ height: `${num * 5}px`, color: "blue" }}
 					></div>
 				))}
+				<button onClick={() => this.sort(this.state.numArr, "merge")}>
+					Sort
+				</button>
 			</div>
 		);
 	}
