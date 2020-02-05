@@ -1,7 +1,7 @@
-export const bubbleSort = arr => {
+export const insertionSort = arr => {
 	let compareArr = [];
-	for (let i = arr.length; i > 0; i--) {
-		for (let j = 1; j < i; j++) {
+	for (let i = 1; i < arr.length; i++) {
+		for (let j = i; j >= 0; j--) {
 			compareArr.push([j, j - 1]);
 			if (arr[j] < arr[j - 1]) {
 				let temp = arr[j];

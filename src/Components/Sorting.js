@@ -1,6 +1,7 @@
 import React from "react";
 import { mergeSort } from "./SortingAlgorithms/MergeSort";
 import { bubbleSort } from "./SortingAlgorithms/BubbleSort";
+import { insertionSort } from "./SortingAlgorithms/InsertionSort";
 
 class Sorting extends React.Component {
 	constructor() {
@@ -54,6 +55,7 @@ class Sorting extends React.Component {
 			}, timeDelay);
 		});
 	}
+	async insertion() {}
 
 	async bubble() {
 		let compareArr = bubbleSort(this.state.numArr);
@@ -109,6 +111,7 @@ class Sorting extends React.Component {
 				))}
 				{/* <button onClick={() => this.mergeSort()}>MergeSort</button> */}
 				<button onClick={() => this.bubble()}>BubbleSort</button>
+				<button onClick={() => this.insertion()}>InsertionSort</button>
 			</div>
 		);
 	}
