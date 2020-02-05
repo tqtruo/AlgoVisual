@@ -25,14 +25,12 @@ class Sorting extends React.Component {
 			arr[i] = arr[randomIndex];
 			arr[randomIndex] = temp;
 		}
-		console.log("random array: " + arr);
-
 		return arr;
 	}
 
 	fillArray() {
 		const newArray = [];
-		for (let i = 1; i <= 100; i++) {
+		for (let i = 1; i <= 50; i++) {
 			newArray.push(i);
 		}
 
@@ -43,28 +41,61 @@ class Sorting extends React.Component {
 		});
 	}
 
-	mergeSort() {
+	merge() {
 		this.setState({
 			numArr: mergeSort(this.state.numArr)
 		});
 	}
 
-	bubbleSort() {
+	delay(timeDelay) {
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve(1);
+			}, timeDelay);
+		});
+	}
+
+	async bubble() {
 		let compareArr = bubbleSort(this.state.numArr);
 		let bars = document.getElementsByClassName("bars");
-		console.log("the bars: " + bars[0].style.height);
-		for (let i = 0; i < compareArr.length; i++) {
-			setTimeout(() => {
-				/* bars[compareArr[i][0]].style.backgroundColor = "red";
-				bars[compareArr[i][1]].style.backgroundColor = "red"; */
+		/* let count = 0;
+		let length = this.state.numArr.length - 1; */
 
-				if (compareArr[i][1] > compareArr[i][0]) {
-					let tempHeight1 = bars[compareArr[i][0]].style.height;
-					let tempHeight2 = bars[compareArr[i][1]].style.height;
-					bars[compareArr[i][0]].style.height = tempHeight2;
-					bars[compareArr[i][1]].style.height = tempHeight1;
-				}
-			}, i * 5);
+		for (let i = 0; i < compareArr.length; i++) {
+			if (i % 2 !== 0) {
+				/* setTimeout(() => { */
+
+				await this.delay(500);
+				bars[compareArr[i][0]].style.backgroundColor = "red";
+				bars[compareArr[i][1]].style.backgroundColor = "red";
+
+				setTimeout(() => {
+					if (compareArr[i][1] > compareArr[i][0]) {
+						let tempHeight1 = bars[compareArr[i][0]].style.height;
+						let tempHeight2 = bars[compareArr[i][1]].style.height;
+
+						bars[compareArr[i][0]].style.height = tempHeight2;
+						bars[compareArr[i][1]].style.height = tempHeight1;
+					}
+				}, 500);
+
+				await this.delay(1000);
+				bars[compareArr[i][0]].style.backgroundColor = "Blue";
+				bars[compareArr[i][1]].style.backgroundColor = "Blue";
+
+				/* setTimeout(() => { */
+
+				/* }, i * 50); */
+
+				/* if (
+						bars[length - count].style.height ==
+						`${this.state.numArr.length - count}px`
+					) {
+						bars[length - count].style.backgroundColor = "green";
+						count++;
+					} */
+				/* }, i * 100); */
+			}
 		}
 	}
 
@@ -80,7 +111,7 @@ class Sorting extends React.Component {
 					></div>
 				))}
 				{/* <button onClick={() => this.mergeSort()}>MergeSort</button> */}
-				<button onClick={() => this.bubbleSort()}>BubbleSort</button>
+				<button onClick={() => this.bubble()}>BubbleSort</button>
 			</div>
 		);
 	}
