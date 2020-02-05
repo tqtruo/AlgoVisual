@@ -1,5 +1,6 @@
 import React from "react";
-import { mergeSort } from "./SortingAlgorithms";
+import { mergeSort } from "./SortingAlgorithms/MergeSort";
+import { bubbleSort } from "./SortingAlgorithms/BubbleSort";
 
 class Sorting extends React.Component {
 	constructor() {
@@ -24,6 +25,7 @@ class Sorting extends React.Component {
 			arr[i] = arr[randomIndex];
 			arr[randomIndex] = temp;
 		}
+		console.log("random array: " + arr);
 
 		return arr;
 	}
@@ -41,11 +43,28 @@ class Sorting extends React.Component {
 		});
 	}
 
-	sort(arr, type) {
-		if (type == "merge") {
-			this.setState({
-				numArr: mergeSort(arr)
-			});
+	mergeSort() {
+		this.setState({
+			numArr: mergeSort(this.state.numArr)
+		});
+	}
+
+	bubbleSort() {
+		let compareArr = bubbleSort(this.state.numArr);
+		let bars = document.getElementsByClassName("bars");
+		console.log("the bars: " + bars[0].style.height);
+		for (let i = 0; i < compareArr.length; i++) {
+			setTimeout(() => {
+				/* bars[compareArr[i][0]].style.backgroundColor = "red";
+				bars[compareArr[i][1]].style.backgroundColor = "red"; */
+
+				if (compareArr[i][1] > compareArr[i][0]) {
+					let tempHeight1 = bars[compareArr[i][0]].style.height;
+					let tempHeight2 = bars[compareArr[i][1]].style.height;
+					bars[compareArr[i][0]].style.height = tempHeight2;
+					bars[compareArr[i][1]].style.height = tempHeight1;
+				}
+			}, i * 5);
 		}
 	}
 
@@ -60,9 +79,8 @@ class Sorting extends React.Component {
 						style={{ height: `${num * 5}px`, color: "blue" }}
 					></div>
 				))}
-				<button onClick={() => this.sort(this.state.numArr, "merge")}>
-					Sort
-				</button>
+				{/* <button onClick={() => this.mergeSort()}>MergeSort</button> */}
+				<button onClick={() => this.bubbleSort()}>BubbleSort</button>
 			</div>
 		);
 	}
