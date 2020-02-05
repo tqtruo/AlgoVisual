@@ -48,11 +48,12 @@ body {
 	height: 100vh;
 	top: 30vh;
 	color: black;
+	margin-top: 100px;
 }
 
 .bars {
 	display: inline-block;
-	margin: 0px 2px;
+	margin: 0px 1px;
 	width: 10px;
 	background-color: blue;
 }

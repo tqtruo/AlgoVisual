@@ -58,43 +58,40 @@ class Sorting extends React.Component {
 	async bubble() {
 		let compareArr = bubbleSort(this.state.numArr);
 		let bars = document.getElementsByClassName("bars");
-		/* let count = 0;
-		let length = this.state.numArr.length - 1; */
+		let count = 0;
+		let length = this.state.numArr.length - 1;
 
 		for (let i = 0; i < compareArr.length; i++) {
-			if (i % 2 !== 0) {
-				/* setTimeout(() => { */
+			await this.delay(10);
+			if (
+				bars[bars.length - 1 - count].style.height ==
+				`${this.state.numArr[length - count] * 5}px`
+			) {
+				bars[bars.length - 1 - count].style.backgroundColor = "green";
+				count++;
+			}
 
-				await this.delay(500);
-				bars[compareArr[i][0]].style.backgroundColor = "red";
-				bars[compareArr[i][1]].style.backgroundColor = "red";
+			let leftBarStyle = bars[compareArr[i][0]].style;
+			let rightBarStyle = bars[compareArr[i][1]].style;
+
+			if (i % 2 !== 0) {
+				await this.delay(100);
+				leftBarStyle.backgroundColor = "red";
+				rightBarStyle.backgroundColor = "red";
 
 				setTimeout(() => {
 					if (compareArr[i][1] > compareArr[i][0]) {
-						let tempHeight1 = bars[compareArr[i][0]].style.height;
-						let tempHeight2 = bars[compareArr[i][1]].style.height;
+						let tempHeight1 = leftBarStyle.height;
+						let tempHeight2 = rightBarStyle.height;
 
-						bars[compareArr[i][0]].style.height = tempHeight2;
-						bars[compareArr[i][1]].style.height = tempHeight1;
+						leftBarStyle.height = tempHeight2;
+						rightBarStyle.height = tempHeight1;
 					}
-				}, 500);
+				}, 150);
 
-				await this.delay(1000);
-				bars[compareArr[i][0]].style.backgroundColor = "Blue";
-				bars[compareArr[i][1]].style.backgroundColor = "Blue";
-
-				/* setTimeout(() => { */
-
-				/* }, i * 50); */
-
-				/* if (
-						bars[length - count].style.height ==
-						`${this.state.numArr.length - count}px`
-					) {
-						bars[length - count].style.backgroundColor = "green";
-						count++;
-					} */
-				/* }, i * 100); */
+				await this.delay(350);
+				leftBarStyle.backgroundColor = "Blue";
+				rightBarStyle.backgroundColor = "Blue";
 			}
 		}
 	}
