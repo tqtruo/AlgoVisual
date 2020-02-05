@@ -31,7 +31,7 @@ class Sorting extends React.Component {
 
 	fillArray() {
 		const newArray = [];
-		for (let i = 1; i <= 50; i++) {
+		for (let i = 1; i <= 20; i++) {
 			newArray.push(i);
 		}
 
@@ -55,24 +55,13 @@ class Sorting extends React.Component {
 			}, timeDelay);
 		});
 	}
-	async insertion() {}
 
-	async bubble() {
-		let compareArr = bubbleSort(this.state.numArr);
+	async insertion() {
+		let compareArr = insertionSort(this.state.numArr);
+
 		let bars = document.getElementsByClassName("bars");
-		let count = 0;
-		let length = this.state.numArr.length - 1;
 
 		for (let i = 0; i < compareArr.length; i++) {
-			await this.delay(10);
-			if (
-				bars[bars.length - 1 - count].style.height ==
-				`${this.state.numArr[length - count] * 5}px`
-			) {
-				bars[bars.length - 1 - count].style.backgroundColor = "green";
-				count++;
-			}
-
 			let leftBarStyle = bars[compareArr[i][0]].style;
 			let rightBarStyle = bars[compareArr[i][1]].style;
 
@@ -94,6 +83,51 @@ class Sorting extends React.Component {
 				await this.delay(350);
 				leftBarStyle.backgroundColor = "Blue";
 				rightBarStyle.backgroundColor = "Blue";
+			}
+		}
+		bars.style.backgroundColor = "green";
+	}
+
+	async bubble() {
+		let compareArr = bubbleSort(this.state.numArr);
+		let bars = document.getElementsByClassName("bars");
+		let count = 0;
+		let length = this.state.numArr.length - 1;
+
+		console.log("compare array length: " + compareArr.length);
+
+		for (let i = 0; i < compareArr.length; i++) {
+			let leftBarStyle = bars[compareArr[i][0]].style;
+			let rightBarStyle = bars[compareArr[i][1]].style;
+
+			await this.delay(100);
+			if (i % 2 !== 0) {
+				await this.delay(100);
+				leftBarStyle.backgroundColor = "red";
+				rightBarStyle.backgroundColor = "red";
+
+				setTimeout(() => {
+					if (compareArr[i][1] > compareArr[i][0]) {
+						let tempHeight1 = leftBarStyle.height;
+						let tempHeight2 = rightBarStyle.height;
+
+						leftBarStyle.height = tempHeight2;
+						rightBarStyle.height = tempHeight1;
+					}
+				}, 150);
+
+				await this.delay(350);
+				leftBarStyle.backgroundColor = "Blue";
+				rightBarStyle.backgroundColor = "Blue";
+			}
+
+			await this.delay(100);
+			if (
+				bars[bars.length - 1 - count].style.height ==
+				`${this.state.numArr[length - count] * 5}px`
+			) {
+				bars[bars.length - 1 - count].style.backgroundColor = "green";
+				count++;
 			}
 		}
 	}
