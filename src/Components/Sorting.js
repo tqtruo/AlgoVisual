@@ -94,6 +94,7 @@ class Sorting extends React.Component {
 	async bubble() {
 		let compareArr = bubbleSort(this.state.numArr);
 		let bars = document.getElementsByClassName("bars");
+		let count = 0;
 
 		for (let i = 0; i < compareArr.length; i++) {
 			let leftBarStyle = bars[compareArr[i][0]].style;
@@ -124,6 +125,8 @@ class Sorting extends React.Component {
 				bars[bars.length - 1 - count].style.backgroundColor = "green";
 				count++;
 			}
+
+			//need to fix
 		}
 	}
 
@@ -148,30 +151,37 @@ class Sorting extends React.Component {
 				setTimeout(() => {
 					if (
 						parseInt(minBarStyle.height) < parseInt(placeHolderStyle.height) &&
-						compareArr[i][1] !== compareArr[i][2] &&
 						!called
 					) {
-						console.log("yellow");
 						previousMinBar = bars[compareArr[i][1]];
-						minBarStyle.backgroundColor = "yellow";
-						console.log("color: " + minBarStyle.backgroundColor);
+						minBarStyle.backgroundColor = "black";
 						called = true;
+						swapped = true;
 					} else if (
-						parseInt(checkBarStyle.height) < parseInt(minBarStyle.height)
+						previousMinBar &&
+						parseInt(checkBarStyle.height) <
+							parseInt(previousMinBar.style.height) &&
+						called
 					) {
-						checkBarStyle.backgroundColor = "yellow";
+						checkBarStyle.backgroundColor = "black";
+						previousMinBar.style.backgroundColor = "blue";
+						previousMinBar = bars[compareArr[i][2]];
+						swapped = true;
+					} else if (
+						parseInt(checkBarStyle.height) < parseInt(minBarStyle.height) &&
+						called
+					) {
+						checkBarStyle.backgroundColor = "black";
 						swapped = true;
 						if (compareArr[i][0] !== compareArr[i][1]) {
-							if (previousMinBar) {
-								previousMinBar.backgroundColor = "blue";
-							} else {
-								minBarStyle.style.backgroundColor = "blue";
-							}
+							minBarStyle.style.backgroundColor = "blue";
 						}
+					} else {
+						swapped = false;
 					}
 				}, 150);
 
-				await this.delay(300);
+				await this.delay(150);
 				if (!swapped) {
 					checkBarStyle.backgroundColor = "blue";
 				}
@@ -179,7 +189,6 @@ class Sorting extends React.Component {
 
 			await this.delay(100);
 			if (i % 2 === 1 && compareArr[i][2] === bars.length - 1) {
-				console.log("called?: " + called);
 				called = false;
 				let minBarHeight = minBarStyle.height;
 				let placeHolderHeight = placeHolderStyle.height;
@@ -193,7 +202,8 @@ class Sorting extends React.Component {
 				continue;
 			}
 		}
-		await this.delay(100);
+
+		await this.delay(150);
 		bars[bars.length - 1].style.backgroundColor = "green";
 	}
 
