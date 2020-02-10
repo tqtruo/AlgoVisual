@@ -131,6 +131,7 @@ class Sorting extends React.Component {
 		let compareArr = selectionSort(this.state.numArr);
 		let bars = Array.from(document.getElementsByClassName("bars"));
 		let called = false;
+		let swapped = false;
 		let previousMinBar;
 
 		for (let i = 0; i < compareArr.length; i++) {
@@ -144,34 +145,41 @@ class Sorting extends React.Component {
 				placeHolderStyle.backgroundColor = "purple";
 				checkBarStyle.backgroundColor = "red";
 
-				setTimeout(() => {
-					if (
-						parseInt(minBarStyle.height) < parseInt(placeHolderStyle.height) &&
-						!called
-					) {
-						console.log("yellow");
-						previousMinBar = bars[compareArr[i][1]];
-						minBarStyle.backgroundColor = "yellow";
-						called = true;
-					} else if (
-						parseInt(minBarStyle.height) < parseInt(checkBarStyle.height)
-					) {
-						checkBarStyle.backgroundColor = "yellow";
-						if (!previousMinBar) {
-							minBarStyle.backgroundColor = "blue";
-						} else {
-							previousMinBar.style.backgroundColor = "blue";
-						}
-						/* minBarStyle.backgroundColor = "blue"; */
+				/* 	setTimeout(() => { */
+				if (
+					parseInt(minBarStyle.height) < parseInt(placeHolderStyle.height) &&
+					compareArr[i][1] !== compareArr[i][2] &&
+					!called
+				) {
+					console.log("yellow");
+					previousMinBar = bars[compareArr[i][1]];
+					minBarStyle.backgroundColor = "yellow";
+					console.log("color: " + minBarStyle.backgroundColor);
+					called = true;
+				} else if (
+					parseInt(checkBarStyle.height) < parseInt(minBarStyle.height)
+				) {
+					checkBarStyle.backgroundColor = "yellow";
+					swapped = true;
+					if (!previousMinBar) {
+						minBarStyle.backgroundColor = "blue";
+					} else {
+						previousMinBar.style.backgroundColor = "blue";
 					}
-				}, 150);
+					/* minBarStyle.backgroundColor = "blue"; */
+				}
+				/* 	}, 150); */
 
 				await this.delay(300);
-				checkBarStyle.backgroundColor = "blue";
+				if (!swapped) {
+					checkBarStyle.backgroundColor = "blue";
+				}
 			}
 
 			await this.delay(100);
 			if (i % 2 === 1 && compareArr[i][2] === bars.length - 1) {
+				console.log("called?: " + called);
+				called = false;
 				let minBarHeight = minBarStyle.height;
 				let placeHolderHeight = placeHolderStyle.height;
 
