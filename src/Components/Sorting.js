@@ -32,7 +32,7 @@ class Sorting extends React.Component {
 
 	fillArray() {
 		const newArray = [];
-		for (let i = 1; i <= 10; i++) {
+		for (let i = 1; i <= 15; i++) {
 			newArray.push(i);
 		}
 
@@ -95,6 +95,7 @@ class Sorting extends React.Component {
 		let compareArr = bubbleSort(this.state.numArr);
 		let bars = document.getElementsByClassName("bars");
 		let count = 0;
+		console.log("clicking bubble: " + compareArr);
 
 		for (let i = 0; i < compareArr.length; i++) {
 			let leftBarStyle = bars[compareArr[i][0]].style;
@@ -119,15 +120,15 @@ class Sorting extends React.Component {
 				await this.delay(350);
 				leftBarStyle.backgroundColor = "Blue";
 				rightBarStyle.backgroundColor = "Blue";
-			}
 
-			if (compareArr[i + 1][1] === 0) {
-				bars[bars.length - 1 - count].style.backgroundColor = "green";
-				count++;
+				if (compareArr[i + 1] && compareArr[i + 1][1] === 0) {
+					bars[bars.length - 1 - count].style.backgroundColor = "green";
+					count++;
+				}
 			}
-
-			//need to fix
 		}
+		bars[bars.length - 1 - count].style.backgroundColor = "green";
+		bars[bars.length - 2 - count].style.backgroundColor = "green";
 	}
 
 	async selection() {
