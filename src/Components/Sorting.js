@@ -145,30 +145,31 @@ class Sorting extends React.Component {
 				placeHolderStyle.backgroundColor = "purple";
 				checkBarStyle.backgroundColor = "red";
 
-				/* 	setTimeout(() => { */
-				if (
-					parseInt(minBarStyle.height) < parseInt(placeHolderStyle.height) &&
-					compareArr[i][1] !== compareArr[i][2] &&
-					!called
-				) {
-					console.log("yellow");
-					previousMinBar = bars[compareArr[i][1]];
-					minBarStyle.backgroundColor = "yellow";
-					console.log("color: " + minBarStyle.backgroundColor);
-					called = true;
-				} else if (
-					parseInt(checkBarStyle.height) < parseInt(minBarStyle.height)
-				) {
-					checkBarStyle.backgroundColor = "yellow";
-					swapped = true;
-					if (!previousMinBar) {
-						minBarStyle.backgroundColor = "blue";
-					} else {
-						previousMinBar.style.backgroundColor = "blue";
+				setTimeout(() => {
+					if (
+						parseInt(minBarStyle.height) < parseInt(placeHolderStyle.height) &&
+						compareArr[i][1] !== compareArr[i][2] &&
+						!called
+					) {
+						console.log("yellow");
+						previousMinBar = bars[compareArr[i][1]];
+						minBarStyle.backgroundColor = "yellow";
+						console.log("color: " + minBarStyle.backgroundColor);
+						called = true;
+					} else if (
+						parseInt(checkBarStyle.height) < parseInt(minBarStyle.height)
+					) {
+						checkBarStyle.backgroundColor = "yellow";
+						swapped = true;
+						if (compareArr[i][0] !== compareArr[i][1]) {
+							if (previousMinBar) {
+								previousMinBar.backgroundColor = "blue";
+							} else {
+								minBarStyle.style.backgroundColor = "blue";
+							}
+						}
 					}
-					/* minBarStyle.backgroundColor = "blue"; */
-				}
-				/* 	}, 150); */
+				}, 150);
 
 				await this.delay(300);
 				if (!swapped) {
