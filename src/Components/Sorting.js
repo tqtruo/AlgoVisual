@@ -58,7 +58,6 @@ class Sorting extends React.Component {
 
 	async insertion() {
 		let compareArr = insertionSort(this.state.numArr);
-
 		let bars = document.getElementsByClassName("bars");
 
 		for (let i = 0; i < compareArr.length; i++) {

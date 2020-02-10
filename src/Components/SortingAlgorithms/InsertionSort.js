@@ -10,6 +10,7 @@ export const insertionSort = arr => {
 				compareArr.push([j - 1, j]);
 			} else {
 				compareArr.push([j, j - 1]);
+				break;
 			}
 		}
 	}
