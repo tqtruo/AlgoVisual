@@ -96,7 +96,7 @@ class Sorting extends React.Component {
 		let count = 0;
 		let length = this.state.numArr.length - 1;
 
-		console.log("compare array length: " + compareArr.length);
+		console.log("compare array: " + compareArr);
 
 		for (let i = 0; i < compareArr.length; i++) {
 			let leftBarStyle = bars[compareArr[i][0]].style;
@@ -123,6 +123,10 @@ class Sorting extends React.Component {
 				rightBarStyle.backgroundColor = "Blue";
 			}
 
+			if (i % 2 === 1 && compareArr[i + 1][1] === 0) {
+				bars[bars.length - 1 - count].style.backgroundColor = "green";
+				count++;
+			}
 			/* await this.delay(100);
 			if (
 				bars[bars.length - 1 - count].style.height ==
