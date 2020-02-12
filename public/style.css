@@ -43,8 +43,8 @@ body {
 
 .sorting {
 	position: absolute;
-	left: 20%;
-	right: 20%;
+	left: 15%;
+	right: 15%;
 	height: 100vh;
 	top: 30vh;
 	color: black;
@@ -70,4 +70,34 @@ body {
 	height: 100vh;
 	padding-top: 50px;
 	color: black;
+}
+
+.sorting-choice {
+	margin: 30px;
+}
+
+.sorting-choice select {
+	background-color: skyblue;
+	color: darkblue;
+}
+
+.select-selected {
+	background-color: skyblue;
+}
+
+.sorting-choice > button {
+	transition-duration: 0.3s;
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid skyblue;
+	background-color: skyblue;
+	color: black;
+}
+
+.sorting-choice > button:hover {
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid darkblue;
+	background-color: darkblue;
+	color: white;
 }

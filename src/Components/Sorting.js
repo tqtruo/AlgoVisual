@@ -8,12 +8,22 @@ class Sorting extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			numArr: []
+			numArr: [],
+			sortStyle: ""
 		};
+		this.changeHandler = this.changeHandler.bind(this);
 	}
 
 	componentDidMount() {
 		this.fillArray();
+	}
+
+	changeHandler(event) {
+		event.preventDefault();
+		console.log("change: " + event.target.value);
+		this.setState({
+			sortStyle: event.target.value
+		});
 	}
 
 	/* The shuffle function uses the Fisher-Yates shuffle method
@@ -51,6 +61,25 @@ class Sorting extends React.Component {
 		});
 	}
 
+	sort() {
+		switch (this.state.sortStyle) {
+			case "bubble":
+				this.bubble();
+				break;
+			case "selection":
+				this.selection();
+				break;
+			case "insertion":
+				this.insertion();
+				break;
+			case "merge":
+				this.merge();
+				break;
+			default:
+				console.log("Please select a sorting");
+		}
+	}
+
 	async merge() {
 		let compareArr = mergeSort(this.state.numArr);
 		let bars = document.getElementsByClassName("bars");
@@ -59,16 +88,16 @@ class Sorting extends React.Component {
 			let leftBar = bars[compareArr[i][0]];
 			let rightBar = bars[compareArr[i][1]];
 			if (i % 3 === 1) {
-				await this.delay(10);
+				await this.delay(150);
 				leftBar.style.backgroundColor = "blue";
 				rightBar.style.backgroundColor = "blue";
 			} else if (i % 3 === 2) {
-				await this.delay(10);
+				await this.delay(150);
 				let mainBar = bars[compareArr[i][0]];
 				let barHeight = compareArr[i][1];
 				mainBar.style.height = `${barHeight * 5}px`;
 			} else {
-				await this.delay(10);
+				await this.delay(150);
 				leftBar.style.backgroundColor = "red";
 				rightBar.style.backgroundColor = "red";
 			}
@@ -237,6 +266,23 @@ class Sorting extends React.Component {
 	render() {
 		return (
 			<div className="sorting">
+				<div className="sorting-choice">
+					<select id="sort" onChange={this.changeHandler}>
+						<option value="none" disabled selected>
+							Select a Sorting Algo!
+						</option>
+						<option value="bubble">Bubble Sort</option>
+						<option value="selection">Selection Sort</option>
+						<option value="insertion">Insertion Sort</option>
+						<option value="merge">Merge Sort</option>
+					</select>
+					<button onClick={() => this.sort()}>Sort</button>
+					{/* <button onClick={() => this.merge()}>MergeSort</button>
+					<button onClick={() => this.bubble()}>BubbleSort</button>
+					<button onClick={() => this.insertion()}>InsertionSort</button>
+					<button onClick={() => this.selection()}>SelectionSort</button> */}
+				</div>
+
 				{this.state.numArr.map((num, index) => (
 					<div
 						className="bars"
@@ -244,10 +290,6 @@ class Sorting extends React.Component {
 						style={{ height: `${num * 5}px`, color: "blue" }}
 					></div>
 				))}
-				<button onClick={() => this.merge()}>MergeSort</button>
-				<button onClick={() => this.bubble()}>BubbleSort</button>
-				<button onClick={() => this.insertion()}>InsertionSort</button>
-				<button onClick={() => this.selection()}>SelectionSort</button>
 			</div>
 		);
 	}
