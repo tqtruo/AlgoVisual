@@ -54,7 +54,7 @@ body {
 .bars {
 	display: inline-block;
 	margin: 0px 1px;
-	width: 10px;
+	width: 6px;
 	background-color: blue;
 }
 

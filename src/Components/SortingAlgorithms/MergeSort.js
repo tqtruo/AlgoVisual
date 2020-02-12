@@ -49,23 +49,23 @@ export const mergeSort = arr => {
 	}
 
 	let arrayCopy = arr.slice();
-	mergeSortHelper(arr, 0, arr.length - 1, arrayCopy);
-	return arr;
+	mergeSortHelper(arr, 0, arr.length - 1, arrayCopy, compareArr);
+	return compareArr;
 };
 
-const mergeSortHelper = (mainArray, start, end, copyArray) => {
+const mergeSortHelper = (mainArray, start, end, copyArray, compareArr) => {
 	if (start == end) {
 		return;
 	}
 	let mid = Math.floor((start + end) / 2);
 
-	/* Calling in mergeSortHelper twice passing in start, mid and mid +1, end is effectively splitting the array */
-	mergeSortHelper(copyArray, start, mid, mainArray);
-	mergeSortHelper(copyArray, mid + 1, end, mainArray);
-	merging(mainArray, start, mid, end, copyArray);
+	/* Calling in mergeSortHelper twice passing in (start, mid) and (mid +1, end) is effectively splitting the array */
+	mergeSortHelper(copyArray, start, mid, mainArray, compareArr);
+	mergeSortHelper(copyArray, mid + 1, end, mainArray, compareArr);
+	merging(mainArray, start, mid, end, copyArray, compareArr);
 };
 
-const merging = (mainArray, start, mid, end, copyArray) => {
+const merging = (mainArray, start, mid, end, copyArray, compareArr) => {
 	//Left and right are for keeping track of the subarrays being sorted
 	let left = start;
 	let right = mid + 1;
@@ -74,21 +74,34 @@ const merging = (mainArray, start, mid, end, copyArray) => {
 	let mainArrayIndex = start;
 
 	while (left <= mid && right <= end) {
+		compareArr.push([left, right]);
+		compareArr.push([left, right]);
 		if (copyArray[left] <= copyArray[right]) {
+			//Not pushing in just left to start accounting for customized arrays without values directly not next to each other
+			compareArr.push([mainArrayIndex, copyArray[left]]);
 			mainArray[mainArrayIndex] = copyArray[left];
 			left++;
 		} else {
+			compareArr.push([mainArrayIndex, copyArray[right]]);
 			mainArray[mainArrayIndex] = copyArray[right];
 			right++;
 		}
 		mainArrayIndex++;
 	}
 	while (left <= mid) {
+		//only left because the right has finished checking
+		compareArr.push([left, left]);
+		compareArr.push([left, left]);
+		compareArr.push([mainArrayIndex, copyArray[left]]);
 		mainArray[mainArrayIndex] = copyArray[left];
 		mainArrayIndex++;
 		left++;
 	}
 	while (right <= end) {
+		//only right because the left has finished checking
+		compareArr.push([right, right]);
+		compareArr.push([right, right]);
+		compareArr.push([mainArrayIndex, copyArray[right]]);
 		mainArray[mainArrayIndex] = copyArray[right];
 		mainArrayIndex++;
 		right++;

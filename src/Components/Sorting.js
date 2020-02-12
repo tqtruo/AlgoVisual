@@ -32,7 +32,7 @@ class Sorting extends React.Component {
 
 	fillArray() {
 		const newArray = [];
-		for (let i = 1; i <= 15; i++) {
+		for (let i = 1; i <= 100; i++) {
 			newArray.push(i);
 		}
 
@@ -51,9 +51,30 @@ class Sorting extends React.Component {
 		});
 	}
 
-	merge() {
-		this.setState({
-			numArr: mergeSort(this.state.numArr)
+	async merge() {
+		let compareArr = mergeSort(this.state.numArr);
+		let bars = document.getElementsByClassName("bars");
+
+		for (let i = 0; i < compareArr.length; i++) {
+			let leftBar = bars[compareArr[i][0]];
+			let rightBar = bars[compareArr[i][1]];
+			if (i % 3 === 1) {
+				await this.delay(10);
+				leftBar.style.backgroundColor = "blue";
+				rightBar.style.backgroundColor = "blue";
+			} else if (i % 3 === 2) {
+				await this.delay(10);
+				let mainBar = bars[compareArr[i][0]];
+				let barHeight = compareArr[i][1];
+				mainBar.style.height = `${barHeight * 5}px`;
+			} else {
+				await this.delay(10);
+				leftBar.style.backgroundColor = "red";
+				rightBar.style.backgroundColor = "red";
+			}
+		}
+		Array.from(bars).forEach(bar => {
+			bar.style.backgroundColor = "green";
 		});
 	}
 
@@ -144,9 +165,9 @@ class Sorting extends React.Component {
 			let minBarStyle = bars[compareArr[i][1]].style;
 			let checkBarStyle = bars[compareArr[i][2]].style;
 
-			await this.delay(100);
+			await this.delay(50);
 			if (i % 2 !== 0) {
-				await this.delay(100);
+				await this.delay(50);
 				placeHolderStyle.backgroundColor = "orange";
 				checkBarStyle.backgroundColor = "red";
 
@@ -185,15 +206,15 @@ class Sorting extends React.Component {
 					} else {
 						swapped = false;
 					}
-				}, 150);
+				}, 75);
 
-				await this.delay(150);
+				await this.delay(75);
 				if (!swapped) {
 					checkBarStyle.backgroundColor = "blue";
 				}
 			}
 
-			await this.delay(100);
+			await this.delay(50);
 			if (i % 2 === 1 && compareArr[i][2] === bars.length - 1) {
 				called = false;
 				let minBarHeight = minBarStyle.height;
