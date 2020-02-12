@@ -43,12 +43,6 @@ class Sorting extends React.Component {
 		});
 	}
 
-	merge() {
-		this.setState({
-			numArr: mergeSort(this.state.numArr)
-		});
-	}
-
 	delay(timeDelay) {
 		return new Promise(resolve => {
 			setTimeout(() => {
@@ -57,6 +51,13 @@ class Sorting extends React.Component {
 		});
 	}
 
+	merge() {
+		this.setState({
+			numArr: mergeSort(this.state.numArr)
+		});
+	}
+
+	/* INSERTION SORT */
 	async insertion() {
 		let compareArr = insertionSort(this.state.numArr);
 		let bars = document.getElementsByClassName("bars");
@@ -90,12 +91,11 @@ class Sorting extends React.Component {
 			bar.style.backgroundColor = "green";
 		});
 	}
-
+	/* BUBBLE SORT */
 	async bubble() {
 		let compareArr = bubbleSort(this.state.numArr);
 		let bars = document.getElementsByClassName("bars");
 		let count = 0;
-		console.log("clicking bubble: " + compareArr);
 
 		for (let i = 0; i < compareArr.length; i++) {
 			let leftBarStyle = bars[compareArr[i][0]].style;
@@ -127,10 +127,11 @@ class Sorting extends React.Component {
 				}
 			}
 		}
+		//Loop will end without making the last two bars green, so these lines will do that
 		bars[bars.length - 1 - count].style.backgroundColor = "green";
 		bars[bars.length - 2 - count].style.backgroundColor = "green";
 	}
-
+	/* SELECTION SORT */
 	async selection() {
 		let compareArr = selectionSort(this.state.numArr);
 		let bars = Array.from(document.getElementsByClassName("bars"));
@@ -146,33 +147,37 @@ class Sorting extends React.Component {
 			await this.delay(100);
 			if (i % 2 !== 0) {
 				await this.delay(100);
-				placeHolderStyle.backgroundColor = "purple";
+				placeHolderStyle.backgroundColor = "orange";
 				checkBarStyle.backgroundColor = "red";
 
 				setTimeout(() => {
 					if (
+						//Sets the min bar to yellow if it's not the placeholder bar
 						parseInt(minBarStyle.height) < parseInt(placeHolderStyle.height) &&
 						!called
 					) {
 						previousMinBar = bars[compareArr[i][1]];
-						minBarStyle.backgroundColor = "black";
+						minBarStyle.backgroundColor = "yellow";
 						called = true;
 						swapped = true;
 					} else if (
+						//swaps the color if another bar is smaller than the current minimum
 						previousMinBar &&
 						parseInt(checkBarStyle.height) <
 							parseInt(previousMinBar.style.height) &&
 						called
 					) {
-						checkBarStyle.backgroundColor = "black";
+						//swaps the color if another bar is smaller than the current minimum
+						checkBarStyle.backgroundColor = "yellow";
 						previousMinBar.style.backgroundColor = "blue";
 						previousMinBar = bars[compareArr[i][2]];
 						swapped = true;
 					} else if (
+						//Swaps color of checker with min if the checker is less than the current min
 						parseInt(checkBarStyle.height) < parseInt(minBarStyle.height) &&
 						called
 					) {
-						checkBarStyle.backgroundColor = "black";
+						checkBarStyle.backgroundColor = "yellow";
 						swapped = true;
 						if (compareArr[i][0] !== compareArr[i][1]) {
 							minBarStyle.style.backgroundColor = "blue";
@@ -209,7 +214,6 @@ class Sorting extends React.Component {
 	}
 
 	render() {
-		//console.log("the state: " + this.state.numArr);
 		return (
 			<div className="sorting">
 				{this.state.numArr.map((num, index) => (
@@ -219,7 +223,7 @@ class Sorting extends React.Component {
 						style={{ height: `${num * 5}px`, color: "blue" }}
 					></div>
 				))}
-				{/* <button onClick={() => this.mergeSort()}>MergeSort</button> */}
+				<button onClick={() => this.merge()}>MergeSort</button>
 				<button onClick={() => this.bubble()}>BubbleSort</button>
 				<button onClick={() => this.insertion()}>InsertionSort</button>
 				<button onClick={() => this.selection()}>SelectionSort</button>

@@ -1,11 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-	BrowserRouter as Router,
-	withRouter,
-	Route,
-	Switch
-} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Home from "./Components/Home";
 import Searching from "./Components/Searching";
 import Sorting from "./Components/Sorting";
