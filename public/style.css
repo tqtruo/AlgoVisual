@@ -77,7 +77,10 @@ body {
 }
 
 .sorting-choice {
+	margin-top: 10px;
 	margin-bottom: 30px;
+	border-radius: 5px;
+	background-color: lightyellow;
 }
 
 .sorting-choice select {
@@ -165,4 +168,35 @@ body {
 	border: 1px solid red;
 	background-color: red;
 	color: white;
+}
+
+.sort-speed {
+	display: inline-block;
+	font-size: 16px;
+}
+.sort-slider {
+	margin: 0px 5px;
+	appearance: none;
+	-webkit-appearance: none;
+	width: 100px;
+	height: 6px;
+	background: grey;
+	opacity: 0.8;
+	-webkit-transition: 0.2s;
+	transition: 0.2;
+}
+
+.sort-slider:hover {
+	opacity: 1;
+}
+
+.sort-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background: green; /* #4caf50 */
+
+	cursor: pointer;
 }

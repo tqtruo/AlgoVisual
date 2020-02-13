@@ -19,10 +19,10 @@ class Sorting extends React.Component {
 		document.getElementById("sort-button").disabled = true;
 		Array.from(
 			document.getElementsByClassName("sorting")
-		)[0].style.minWidth = `${this.state.numArr.length * 8 + 10}px`;
+		)[0].style.minWidth = `${this.state.numArr.length * 8}px`;
 		Array.from(
 			document.getElementsByClassName("sorting")
-		)[0].style.maxWidth = `${this.state.numArr.length * 8 + 10}px`;
+		)[0].style.maxWidth = `${this.state.numArr.length * 8}px`;
 	}
 
 	changeHandler(event) {
@@ -315,6 +315,17 @@ class Sorting extends React.Component {
 					<button id="new-array-button" onClick={() => this.fillArray()}>
 						Generate New Array
 					</button>
+					<div className="sort-speed">
+						<label htmlFor="speed">Animation Speed</label> <br />
+						<input
+							type="range"
+							name="speed"
+							className="sort-slider"
+							defaultValue="1"
+							min="1"
+							max="5"
+						></input>
+					</div>
 				</div>
 
 				{this.state.numArr.map((num, index) => (
