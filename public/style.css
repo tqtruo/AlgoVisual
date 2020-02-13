@@ -1,5 +1,6 @@
 body {
 	margin: 0;
+	background-color: lightgrey;
 }
 
 .navbar {
@@ -45,10 +46,13 @@ body {
 	position: absolute;
 	left: 15%;
 	right: 15%;
-	height: 100vh;
-	top: 30vh;
+	/* height: 100vh; */
+	top: 15vh;
 	color: black;
-	margin-top: 100px;
+	background-color: white;
+	border-radius: 10px;
+	padding: 0 5px;
+	/* margin-top: 100px; */
 }
 
 .bars {
@@ -73,31 +77,92 @@ body {
 }
 
 .sorting-choice {
-	margin: 30px;
+	margin-bottom: 30px;
 }
 
 .sorting-choice select {
 	background-color: skyblue;
 	color: darkblue;
+	border-radius: 5px;
+	margin: 0 5px;
+}
+
+.sorting-choice select:disabled {
+	background-color: red;
+	color: white;
+	border-radius: 5px;
+	margin: 0 5px;
 }
 
 .select-selected {
 	background-color: skyblue;
 }
 
-.sorting-choice > button {
+#sort-button {
 	transition-duration: 0.3s;
 	margin: 5px;
 	border-radius: 5px;
-	border: 1px solid skyblue;
-	background-color: skyblue;
+	border: 1px solid green;
+	background-color: green;
+	color: white;
+}
+
+#sort-button:disabled {
+	transition-duration: 0.3s;
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid red;
+	background-color: red;
+	color: white;
+}
+
+#sort-button:disabled:hover {
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid red;
+	background-color: red;
+	color: white;
+}
+
+#sort-button:hover {
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid greenyellow;
+	background-color: greenyellow;
 	color: black;
 }
 
-.sorting-choice > button:hover {
+#new-array-button {
+	transition-duration: 0.3s;
 	margin: 5px;
 	border-radius: 5px;
-	border: 1px solid darkblue;
-	background-color: darkblue;
+	border: 1px solid green;
+	background-color: green;
+	color: white;
+}
+
+#new-array-button:disabled {
+	transition-duration: 0.3s;
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid red;
+	background-color: red;
+	color: white;
+}
+
+#new-array-button:hover {
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid greenyellow;
+	background-color: greenyellow;
+	color: black;
+}
+
+#new-array-button:disabled:hover {
+	transition-duration: 0.3s;
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid red;
+	background-color: red;
 	color: white;
 }

@@ -14,12 +14,20 @@ class Sorting extends React.Component {
 		this.changeHandler = this.changeHandler.bind(this);
 	}
 
-	componentDidMount() {
-		this.fillArray();
+	async componentDidMount() {
+		await this.fillArray();
+		document.getElementById("sort-button").disabled = true;
+		Array.from(
+			document.getElementsByClassName("sorting")
+		)[0].style.minWidth = `${this.state.numArr.length * 8 + 10}px`;
+		Array.from(
+			document.getElementsByClassName("sorting")
+		)[0].style.maxWidth = `${this.state.numArr.length * 8 + 10}px`;
 	}
 
 	changeHandler(event) {
 		event.preventDefault();
+		document.getElementById("sort-button").disabled = false;
 		console.log("change: " + event.target.value);
 		this.setState({
 			sortStyle: event.target.value
@@ -42,7 +50,7 @@ class Sorting extends React.Component {
 
 	fillArray() {
 		const newArray = [];
-		for (let i = 1; i <= 100; i++) {
+		for (let i = 1; i <= 125; i++) {
 			newArray.push(i);
 		}
 
@@ -51,6 +59,26 @@ class Sorting extends React.Component {
 		this.setState({
 			numArr: shuffledArr
 		});
+
+		Array.from(document.getElementsByClassName("bars")).forEach(bar => {
+			bar.style.backgroundColor = "blue";
+		});
+
+		if (this.state.sortStyle !== "") {
+			this.enableButtons();
+		}
+	}
+
+	enableButtons() {
+		document.getElementById("sort-button").disabled = false;
+		document.getElementById("sort").disabled = false;
+		document.getElementById("new-array-button").disabled = false;
+	}
+
+	disableButtons() {
+		document.getElementById("sort-button").disabled = true;
+		document.getElementById("sort").disabled = true;
+		document.getElementById("new-array-button").disabled = true;
 	}
 
 	delay(timeDelay) {
@@ -62,6 +90,7 @@ class Sorting extends React.Component {
 	}
 
 	sort() {
+		this.disableButtons();
 		switch (this.state.sortStyle) {
 			case "bubble":
 				this.bubble();
@@ -76,7 +105,7 @@ class Sorting extends React.Component {
 				this.merge();
 				break;
 			default:
-				console.log("Please select a sorting");
+				break;
 		}
 	}
 
@@ -88,16 +117,16 @@ class Sorting extends React.Component {
 			let leftBar = bars[compareArr[i][0]];
 			let rightBar = bars[compareArr[i][1]];
 			if (i % 3 === 1) {
-				await this.delay(150);
+				await this.delay(15);
 				leftBar.style.backgroundColor = "blue";
 				rightBar.style.backgroundColor = "blue";
 			} else if (i % 3 === 2) {
-				await this.delay(150);
+				await this.delay(15);
 				let mainBar = bars[compareArr[i][0]];
 				let barHeight = compareArr[i][1];
 				mainBar.style.height = `${barHeight * 5}px`;
 			} else {
-				await this.delay(150);
+				await this.delay(15);
 				leftBar.style.backgroundColor = "red";
 				rightBar.style.backgroundColor = "red";
 			}
@@ -105,6 +134,7 @@ class Sorting extends React.Component {
 		Array.from(bars).forEach(bar => {
 			bar.style.backgroundColor = "green";
 		});
+		document.getElementById("new-array-button").disabled = false;
 	}
 
 	/* INSERTION SORT */
@@ -140,6 +170,7 @@ class Sorting extends React.Component {
 		Array.from(bars).forEach(bar => {
 			bar.style.backgroundColor = "green";
 		});
+		document.getElementById("new-array-button").disabled = false;
 	}
 	/* BUBBLE SORT */
 	async bubble() {
@@ -180,6 +211,7 @@ class Sorting extends React.Component {
 		//Loop will end without making the last two bars green, so these lines will do that
 		bars[bars.length - 1 - count].style.backgroundColor = "green";
 		bars[bars.length - 2 - count].style.backgroundColor = "green";
+		document.getElementById("new-array-button").disabled = false;
 	}
 	/* SELECTION SORT */
 	async selection() {
@@ -261,6 +293,7 @@ class Sorting extends React.Component {
 
 		await this.delay(150);
 		bars[bars.length - 1].style.backgroundColor = "green";
+		document.getElementById("new-array-button").disabled = false;
 	}
 
 	render() {
@@ -269,18 +302,19 @@ class Sorting extends React.Component {
 				<div className="sorting-choice">
 					<select id="sort" onChange={this.changeHandler}>
 						<option value="none" disabled selected>
-							Select a Sorting Algo!
+							Select a Sorting Type!
 						</option>
 						<option value="bubble">Bubble Sort</option>
 						<option value="selection">Selection Sort</option>
 						<option value="insertion">Insertion Sort</option>
 						<option value="merge">Merge Sort</option>
 					</select>
-					<button onClick={() => this.sort()}>Sort</button>
-					{/* <button onClick={() => this.merge()}>MergeSort</button>
-					<button onClick={() => this.bubble()}>BubbleSort</button>
-					<button onClick={() => this.insertion()}>InsertionSort</button>
-					<button onClick={() => this.selection()}>SelectionSort</button> */}
+					<button id="sort-button" onClick={() => this.sort()}>
+						Sort
+					</button>
+					<button id="new-array-button" onClick={() => this.fillArray()}>
+						Generate New Array
+					</button>
 				</div>
 
 				{this.state.numArr.map((num, index) => (
