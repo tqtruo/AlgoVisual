@@ -226,7 +226,7 @@ body {
 }
 
 #reset-all {
-	transition-duration: 0.3;
+	transition-duration: 0.3s;
 	margin: 5px;
 	border-radius: 5px;
 	border: 1px solid green;

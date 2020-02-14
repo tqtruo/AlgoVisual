@@ -52,6 +52,7 @@ export const Sorting = props => {
 	const resetHandler = () => {
 		event.preventDefault();
 		resetAll();
+		enableButtons();
 		document.getElementsByClassName("sort-slider")[0].value = 1;
 		document.getElementById("sort").value = "none";
 	};
