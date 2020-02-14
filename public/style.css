@@ -46,6 +46,7 @@ body {
 	position: absolute;
 	left: 15%;
 	right: 15%;
+	width: 1000px;
 	/* height: 100vh; */
 	top: 15vh;
 	color: black;
@@ -197,6 +198,5 @@ body {
 	height: 20px;
 	border-radius: 10px;
 	background: green; /* #4caf50 */
-
 	cursor: pointer;
 }
