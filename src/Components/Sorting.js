@@ -8,7 +8,8 @@ import {
 	setSpeed,
 	setCustomArray,
 	setDefaultArray,
-	setSortStyle
+	setSortStyle,
+	resetAll
 } from "../sortReducers";
 
 export const Sorting = props => {
@@ -20,7 +21,8 @@ export const Sorting = props => {
 		setSpeed,
 		setCustomArray,
 		setDefaultArray,
-		setSortStyle
+		setSortStyle,
+		resetAll
 	} = props;
 
 	/* 	let stateArr = [sortStyle]; */
@@ -38,14 +40,11 @@ export const Sorting = props => {
 	const changeHandler = event => {
 		event.preventDefault();
 		document.getElementById("sort-button").disabled = false;
-		console.log("change: " + event.target.value);
 		setSortStyle(event.target.value);
-		console.log("sort style: " + sortStyle);
 	};
 
 	const speedHandler = event => {
 		event.preventDefault();
-		console.log(event.target.value);
 		setSpeed(event.target.value);
 	};
 
@@ -154,6 +153,7 @@ export const Sorting = props => {
 				rightBar.style.backgroundColor = "red";
 			}
 		}
+
 		Array.from(bars).forEach(bar => {
 			bar.style.backgroundColor = "green";
 		});
@@ -349,6 +349,9 @@ export const Sorting = props => {
 						onChange={speedHandler}
 					></input>
 				</div>
+				<button id="reset-array" onClick={() => resetAll()}>
+					Reset
+				</button>
 			</div>
 
 			{numArr.map((num, index) => (
@@ -376,7 +379,8 @@ const mapDispatch = dispatch => {
 		setSpeed: animSpeed => dispatch(setSpeed(animSpeed)),
 		setCustomArray: inputValues => dispatch(setCustomArray(inputValues)),
 		setDefaultArray: defaultArr => dispatch(setDefaultArray(defaultArr)),
-		setSortStyle: sortStyle => dispatch(setSortStyle(sortStyle))
+		setSortStyle: sortStyle => dispatch(setSortStyle(sortStyle)),
+		resetAll: () => dispatch(resetAll())
 	};
 };
 

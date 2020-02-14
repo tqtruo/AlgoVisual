@@ -187,6 +187,30 @@ body {
 	transition: 0.2;
 }
 
+.sort-slider {
+	margin: 0px 5px;
+	appearance: none;
+	-webkit-appearance: none;
+	width: 100px;
+	height: 6px;
+	background: grey;
+	opacity: 0.8;
+	-webkit-transition: 0.2s;
+	transition: 0.2;
+}
+
+.sort-slider:disabled {
+	margin: 0px 5px;
+	appearance: none;
+	-webkit-appearance: none;
+	width: 100px;
+	height: 6px;
+	background: red;
+	opacity: 0.8;
+	-webkit-transition: 0.2s;
+	transition: 0.2;
+}
+
 .sort-slider:hover {
 	opacity: 1;
 }
