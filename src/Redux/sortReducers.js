@@ -1,13 +1,8 @@
-import { createStore, applyMiddleware } from "redux";
-import thunkMiddleware from "redux-thunk";
-import { createLogger } from "redux-logger";
-
 //Action Constants
 const SET_SPEED = "SET_SPEED";
 const SET_CUSTOM_ARRAY = "SET_CUSTOM_ARRAY";
 const SET_DEFAULT_ARAY = "SET_DEFAULT_ARRAY";
 const SET_SORT_STYLE = "SET_SORT_STYLE";
-const RESET_ALL = "RESET_ALL";
 
 //Action Creator
 export const setSpeedCreator = speed => {
@@ -38,12 +33,6 @@ export const sortStyleCreator = style => {
 	};
 };
 
-export const resetCreator = () => {
-	return {
-		type: RESET_ALL
-	};
-};
-
 //Thunk Creator
 
 export const setSpeed = speed => {
@@ -70,12 +59,6 @@ export const setSortStyle = style => {
 	};
 };
 
-export const resetAll = () => {
-	return dispatch => {
-		dispatch(resetCreator());
-	};
-};
-
 //Reducer
 const initialState = {
 	numArr: [],
@@ -84,10 +67,8 @@ const initialState = {
 	animSpeed: 1
 };
 
-const reducer = (state = initialState, action) => {
+export const sortReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case RESET_ALL:
-			return initialState;
 		case SET_SPEED:
 			return { ...state, animSpeed: action.speed };
 		case SET_CUSTOM_ARRAY:
@@ -100,7 +81,3 @@ const reducer = (state = initialState, action) => {
 			return state;
 	}
 };
-
-let middleware = [thunkMiddleware, createLogger({ collapsed: true })];
-
-export default createStore(reducer, applyMiddleware(...middleware));

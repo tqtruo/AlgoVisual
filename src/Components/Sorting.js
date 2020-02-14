@@ -8,9 +8,10 @@ import {
 	setSpeed,
 	setCustomArray,
 	setDefaultArray,
-	setSortStyle,
-	resetAll
-} from "../sortReducers";
+	setSortStyle
+} from "../Redux/sortReducers";
+
+import { resetAll } from "../Redux/store";
 
 export const Sorting = props => {
 	const {
@@ -46,6 +47,13 @@ export const Sorting = props => {
 	const speedHandler = event => {
 		event.preventDefault();
 		setSpeed(event.target.value);
+	};
+
+	const resetHandler = () => {
+		event.preventDefault();
+		resetAll();
+		document.getElementsByClassName("sort-slider")[0].value = 1;
+		document.getElementById("sort").value = "none";
 	};
 
 	/* The shuffle function uses the Fisher-Yates shuffle method
@@ -349,7 +357,7 @@ export const Sorting = props => {
 						onChange={speedHandler}
 					></input>
 				</div>
-				<button id="reset-array" onClick={() => resetAll()}>
+				<button id="reset-all" onClick={() => resetHandler()}>
 					Reset
 				</button>
 			</div>

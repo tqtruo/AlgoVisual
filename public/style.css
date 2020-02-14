@@ -224,3 +224,20 @@ body {
 	background: green; /* #4caf50 */
 	cursor: pointer;
 }
+
+#reset-all {
+	transition-duration: 0.3;
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid green;
+	background-color: green;
+	color: white;
+}
+
+#reset-all:hover {
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid greenyellow;
+	background-color: greenyellow;
+	color: black;
+}
