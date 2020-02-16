@@ -13,5 +13,7 @@ export const bubbleSort = arr => {
 			}
 		}
 	}
+
+	/* 	console.log("after sort: " + testArr); */
 	return compareArr;
 };

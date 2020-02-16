@@ -59,7 +59,7 @@ body {
 .bars {
 	display: inline-block;
 	margin: 0px 1px;
-	width: 6px;
+	width: 8px;
 	background-color: blue;
 }
 
@@ -240,4 +240,72 @@ body {
 	border: 1px solid greenyellow;
 	background-color: greenyellow;
 	color: black;
+}
+
+.custom-form {
+	display: inline;
+}
+
+#custom-input {
+	border-radius: 5px;
+	border-style: solid;
+	border-color: green;
+	border: 2px 2px 2px 2px;
+	padding: 1px 3px;
+	color: black;
+	padding-right: 15px;
+}
+
+#custom-input:disabled {
+	border-radius: 5px;
+	border-style: solid;
+	border-color: red;
+	border: 2px 2px 2px 2px;
+	padding: 1px 3px;
+	color: black;
+	padding-right: 15px;
+}
+
+#custom-input:focus {
+	border-radius: 5px;
+	border-style: solid;
+	border-color: green;
+	border: 2px 2px 2px 2px;
+	color: black;
+	padding-right: 15px;
+}
+
+#submit-input {
+	transition-duration: 0.3s;
+	margin-left: -33px;
+	border-radius: 5px;
+	border: 2px solid green;
+	background-color: green;
+	color: white;
+}
+
+#submit-input:disabled {
+	transition-duration: 0.3s;
+	margin-left: -33px;
+	border-radius: 5px;
+	border: 2px solid red;
+	background-color: red;
+	color: white;
+}
+
+#submit-input:hover {
+	margin-left: -33px;
+	border-radius: 5px;
+	border: 2px solid green;
+	background-color: greenyellow;
+	color: black;
+}
+
+#submit-input:disabled:hover {
+	transition-duration: 0.3s;
+	margin-left: -33px;
+	border-radius: 5px;
+	border: 2px solid red;
+	background-color: red;
+	color: white;
 }

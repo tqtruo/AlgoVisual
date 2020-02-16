@@ -8,7 +8,8 @@ import {
 	setSpeed,
 	setCustomArray,
 	setDefaultArray,
-	setSortStyle
+	setSortStyle,
+	setCustomInput
 } from "../Redux/sortReducers";
 
 import { resetAll } from "../Redux/store";
@@ -19,10 +20,12 @@ export const Sorting = props => {
 		inputArray,
 		numArr,
 		sortStyle,
+		customInput,
 		setSpeed,
 		setCustomArray,
 		setDefaultArray,
 		setSortStyle,
+		setCustomInput,
 		resetAll
 	} = props;
 
@@ -49,12 +52,48 @@ export const Sorting = props => {
 		setSpeed(event.target.value);
 	};
 
+	const inputChangeHandler = event => {
+		event.preventDefault();
+		let input = event.target.value.split(",").map(val => {
+			return parseInt(val);
+		});
+		setCustomInput(input);
+	};
+
+	const submitHandler = async () => {
+		event.preventDefault();
+
+		/* console.log("html: " + document.getElementById("custom-input").value);
+		console.log("input: " + document.getElementById("custom-input").value);
+		console.log("custom: " + customInput); */
+
+		if (document.getElementById("custom-input").value !== "") {
+			let customValue = document
+				.getElementById("custom-input")
+				.value.split(",")
+				.map(val => {
+					return parseInt(val);
+				});
+
+			await setCustomInput(customValue);
+			setCustomArray(customInput);
+			console.log("the array: " + inputArray);
+			if (sortStyle !== "") {
+				enableButtons();
+			}
+			Array.from(document.getElementsByClassName("bars")).forEach(bar => {
+				bar.style.backgroundColor = "blue";
+			});
+		}
+	};
+
 	const resetHandler = () => {
 		event.preventDefault();
 		resetAll();
 		enableButtons();
 		document.getElementsByClassName("sort-slider")[0].value = 1;
 		document.getElementById("sort").value = "none";
+		document.getElementById("custom-input").value = "";
 	};
 
 	/* The shuffle function uses the Fisher-Yates shuffle method
@@ -72,13 +111,13 @@ export const Sorting = props => {
 	};
 
 	const fillArray = () => {
+		setCustomArray([]);
 		const newArray = [];
-		for (let i = 1; i <= 125; i++) {
+		for (let i = 1; i <= 100; i++) {
 			newArray.push(i);
 		}
 
 		const shuffledArr = shuffle(newArray);
-
 		setDefaultArray(shuffledArr);
 
 		Array.from(document.getElementsByClassName("bars")).forEach(bar => {
@@ -102,6 +141,8 @@ export const Sorting = props => {
 		document.getElementById("sort").disabled = false;
 		document.getElementById("new-array-button").disabled = false;
 		document.getElementsByClassName("sort-slider")[0].disabled = false;
+		document.getElementById("custom-input").disabled = false;
+		document.getElementById("submit-input").disabled = false;
 	};
 
 	const disableButtons = () => {
@@ -109,6 +150,8 @@ export const Sorting = props => {
 		document.getElementById("sort").disabled = true;
 		document.getElementById("new-array-button").disabled = true;
 		document.getElementsByClassName("sort-slider")[0].disabled = true;
+		document.getElementById("custom-input").disabled = true;
+		document.getElementById("submit-input").disabled = true;
 	};
 
 	const delay = timeDelay => {
@@ -120,28 +163,31 @@ export const Sorting = props => {
 	};
 
 	const sort = () => {
-		disableButtons();
-		switch (sortStyle) {
-			case "bubble":
-				bubble();
-				break;
-			case "selection":
-				selection();
-				break;
-			case "insertion":
-				insertion();
-				break;
-			case "merge":
-				merge();
-				break;
-			default:
-				enableButtons();
-				break;
+		if (numArr.length > 0 || inputArray.length > 0) {
+			disableButtons();
+			switch (sortStyle) {
+				case "bubble":
+					bubble();
+					break;
+				case "selection":
+					selection();
+					break;
+				case "insertion":
+					insertion();
+					break;
+				case "merge":
+					merge();
+					break;
+				default:
+					enableButtons();
+					break;
+			}
 		}
 	};
 
 	const merge = async () => {
-		let compareArr = mergeSort(numArr);
+		let chosenArr = inputArray.length === 0 ? numArr : inputArray;
+		let compareArr = mergeSort(chosenArr);
 		let bars = document.getElementsByClassName("bars");
 
 		for (let i = 0; i < compareArr.length; i++) {
@@ -167,11 +213,14 @@ export const Sorting = props => {
 			bar.style.backgroundColor = "green";
 		});
 		document.getElementById("new-array-button").disabled = false;
+		document.getElementById("custom-input").disabled = false;
+		document.getElementById("submit-input").disabled = false;
 	};
 
 	/* INSERTION SORT */
 	const insertion = async () => {
-		let compareArr = insertionSort(numArr);
+		let chosenArr = inputArray.length === 0 ? numArr : inputArray;
+		let compareArr = insertionSort(chosenArr);
 		let bars = document.getElementsByClassName("bars");
 
 		for (let i = 0; i < compareArr.length; i++) {
@@ -203,10 +252,13 @@ export const Sorting = props => {
 			bar.style.backgroundColor = "green";
 		});
 		document.getElementById("new-array-button").disabled = false;
+		document.getElementById("custom-input").disabled = false;
+		document.getElementById("submit-input").disabled = false;
 	};
 	/* BUBBLE SORT */
 	const bubble = async () => {
-		let compareArr = bubbleSort(numArr);
+		let chosenArr = inputArray.length === 0 ? numArr : inputArray;
+		let compareArr = bubbleSort(chosenArr);
 		let bars = document.getElementsByClassName("bars");
 		let count = 0;
 
@@ -244,10 +296,13 @@ export const Sorting = props => {
 		bars[bars.length - 1 - count].style.backgroundColor = "green";
 		bars[bars.length - 2 - count].style.backgroundColor = "green";
 		document.getElementById("new-array-button").disabled = false;
+		document.getElementById("custom-input").disabled = false;
+		document.getElementById("submit-input").disabled = false;
 	};
 	/* SELECTION SORT */
 	const selection = async () => {
-		let compareArr = selectionSort(numArr);
+		let chosenArr = inputArray.length === 0 ? numArr : inputArray;
+		let compareArr = selectionSort(chosenArr);
 		let bars = Array.from(document.getElementsByClassName("bars"));
 		let called = false;
 		let swapped = false;
@@ -326,6 +381,8 @@ export const Sorting = props => {
 		await delay(150 / speed);
 		bars[bars.length - 1].style.backgroundColor = "green";
 		document.getElementById("new-array-button").disabled = false;
+		document.getElementById("custom-input").disabled = false;
+		document.getElementById("submit-input").disabled = false;
 	};
 
 	return (
@@ -344,7 +401,7 @@ export const Sorting = props => {
 					Sort
 				</button>
 				<button id="new-array-button" onClick={() => fillArray()}>
-					Generate New Array
+					Generate Random Array
 				</button>
 				<div className="sort-speed">
 					<label htmlFor="speed">Animation Speed</label> <br />
@@ -358,18 +415,41 @@ export const Sorting = props => {
 						onChange={speedHandler}
 					></input>
 				</div>
+
+				<form className="custom-form" onSubmit={submitHandler}>
+					<input
+						id="custom-input"
+						type="text"
+						placeholder="Enter custom array here"
+						onChange={inputChangeHandler}
+					></input>
+					<button id="submit-input" type="submit">
+						Add
+					</button>
+				</form>
 				<button id="reset-all" onClick={() => resetHandler()}>
-					Reset
+					Reset All
 				</button>
 			</div>
-
-			{numArr.map((num, index) => (
-				<div
-					className="bars"
-					key={index}
-					style={{ height: `${num * 5}px`, color: "blue" }}
-				></div>
-			))}
+			{inputArray.length == 0
+				? numArr.map((num, index) => (
+						<div
+							className="bars"
+							key={index}
+							style={{ height: `${num * 5}px`, color: "blue" }}
+						></div>
+				  ))
+				: inputArray.map((num, index) => (
+						<div
+							className="bars"
+							key={index}
+							style={{
+								height: `${num * 5}px`,
+								color: "blue",
+								width: `${1000 / inputArray.length - 2}px`
+							}}
+						></div>
+				  ))}
 		</div>
 	);
 };
@@ -379,7 +459,8 @@ const mapState = state => {
 		speed: state.animSpeed,
 		inputArray: state.arrayBars,
 		numArr: state.numArr,
-		sortStyle: state.sortStyle
+		sortStyle: state.sortStyle,
+		customInput: state.customInput
 	};
 };
 
@@ -389,6 +470,7 @@ const mapDispatch = dispatch => {
 		setCustomArray: inputValues => dispatch(setCustomArray(inputValues)),
 		setDefaultArray: defaultArr => dispatch(setDefaultArray(defaultArr)),
 		setSortStyle: sortStyle => dispatch(setSortStyle(sortStyle)),
+		setCustomInput: customInput => dispatch(setCustomInput(customInput)),
 		resetAll: () => dispatch(resetAll())
 	};
 };

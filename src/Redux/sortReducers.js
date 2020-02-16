@@ -3,6 +3,7 @@ const SET_SPEED = "SET_SPEED";
 const SET_CUSTOM_ARRAY = "SET_CUSTOM_ARRAY";
 const SET_DEFAULT_ARAY = "SET_DEFAULT_ARRAY";
 const SET_SORT_STYLE = "SET_SORT_STYLE";
+const SET_CUSTOM_INPUT = "SET_CUSTOM_INPUT";
 
 //Action Creator
 export const setSpeedCreator = speed => {
@@ -33,6 +34,13 @@ export const sortStyleCreator = style => {
 	};
 };
 
+export const setCustomInputCreator = customInput => {
+	return {
+		type: SET_CUSTOM_INPUT,
+		customInput
+	};
+};
+
 //Thunk Creator
 
 export const setSpeed = speed => {
@@ -59,12 +67,19 @@ export const setSortStyle = style => {
 	};
 };
 
+export const setCustomInput = customInput => {
+	return dispatch => {
+		dispatch(setCustomInputCreator(customInput));
+	};
+};
+
 //Reducer
 const initialState = {
 	numArr: [],
 	sortStyle: "",
 	arrayBars: [],
-	animSpeed: 1
+	animSpeed: 1,
+	customInput: []
 };
 
 export const sortReducer = (state = initialState, action) => {
@@ -72,11 +87,13 @@ export const sortReducer = (state = initialState, action) => {
 		case SET_SPEED:
 			return { ...state, animSpeed: action.speed };
 		case SET_CUSTOM_ARRAY:
-			return { ...state, arrayBars: [...state, action.array] };
+			return { ...state, arrayBars: action.array };
 		case SET_DEFAULT_ARAY:
 			return { ...state, numArr: action.array };
 		case SET_SORT_STYLE:
 			return { ...state, sortStyle: action.style };
+		case SET_CUSTOM_INPUT:
+			return { ...state, customInput: action.customInput };
 		default:
 			return state;
 	}
