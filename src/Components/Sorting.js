@@ -111,6 +111,7 @@ export const Sorting = props => {
 		event.preventDefault();
 		resetAll();
 		enableButtons();
+		document.getElementById("custom-input").style.borderColor = "green";
 		document.getElementsByClassName("sort-slider")[0].value = 1;
 		document.getElementById("sort").value = "none";
 		document.getElementById("custom-input").value = "";
