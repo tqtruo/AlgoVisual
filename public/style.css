@@ -43,12 +43,13 @@ body {
 }
 
 .sorting {
-	position: absolute;
-	left: 15%;
-	right: 15%;
+	position: relative;
+	/* left: 10%;
+	right: 10%; */
+	margin: 10%;
 	width: 1000px;
 	/* height: 100vh; */
-	top: 15vh;
+	/* top: 15vh; */
 	color: black;
 	background-color: white;
 	border-radius: 10px;
@@ -246,6 +247,10 @@ body {
 	display: inline;
 }
 
+.input-class {
+	display: inline-block;
+}
+
 #custom-input {
 	border-radius: 5px;
 	border-style: solid;
@@ -253,6 +258,7 @@ body {
 	border: 2px 2px 2px 2px;
 	padding: 1px 3px;
 	color: black;
+	width: 200px;
 	padding-right: 15px;
 }
 
@@ -263,6 +269,7 @@ body {
 	border: 2px 2px 2px 2px;
 	padding: 1px 3px;
 	color: black;
+	width: 200px;
 	padding-right: 15px;
 }
 
@@ -272,12 +279,23 @@ body {
 	border-color: green;
 	border: 2px 2px 2px 2px;
 	color: black;
+	width: 200px;
+	padding-right: 15px;
+}
+
+#custom-input:disabled:focus {
+	border-radius: 5px;
+	border-style: solid;
+	border-color: red;
+	border: 2px 2px 2px 2px;
+	color: black;
+	width: 200px;
 	padding-right: 15px;
 }
 
 #submit-input {
 	transition-duration: 0.3s;
-	margin-left: -33px;
+	margin-left: -38px;
 	border-radius: 5px;
 	border: 2px solid green;
 	background-color: green;
@@ -286,7 +304,7 @@ body {
 
 #submit-input:disabled {
 	transition-duration: 0.3s;
-	margin-left: -33px;
+	margin-left: -38px;
 	border-radius: 5px;
 	border: 2px solid red;
 	background-color: red;
@@ -294,7 +312,7 @@ body {
 }
 
 #submit-input:hover {
-	margin-left: -33px;
+	margin-left: -38px;
 	border-radius: 5px;
 	border: 2px solid green;
 	background-color: greenyellow;
@@ -303,9 +321,19 @@ body {
 
 #submit-input:disabled:hover {
 	transition-duration: 0.3s;
-	margin-left: -33px;
+	margin-left: -38px;
 	border-radius: 5px;
 	border: 2px solid red;
 	background-color: red;
 	color: white;
+}
+
+.warning {
+	background-color: red;
+	color: white;
+	font-size: 16px;
+	padding: 1px 2px;
+	margin: 1px 3px;
+	border-radius: 5px;
+	visibility: hidden;
 }

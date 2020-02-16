@@ -57,15 +57,31 @@ export const Sorting = props => {
 		let input = event.target.value.split(",").map(val => {
 			return parseInt(val);
 		});
-		setCustomInput(input);
+
+		if (event.target.value == "" || checkInput(input)) {
+			document.getElementsByClassName("warning")[0].style.visibility = "hidden";
+			document.getElementById("custom-input").style.borderColor = "green";
+			document.getElementById("submit-input").disabled = false;
+			setCustomInput(input);
+		} else {
+			document.getElementById("submit-input").disabled = true;
+			document.getElementById("custom-input").style.borderColor = "red";
+			document.getElementsByClassName("warning")[0].style.visibility =
+				"visible";
+		}
+	};
+
+	const checkInput = arrayToCheck => {
+		for (let i = 0; i < arrayToCheck.length; i++) {
+			if (isNaN(arrayToCheck[i])) {
+				return false;
+			}
+		}
+		return true;
 	};
 
 	const submitHandler = async () => {
 		event.preventDefault();
-
-		/* console.log("html: " + document.getElementById("custom-input").value);
-		console.log("input: " + document.getElementById("custom-input").value);
-		console.log("custom: " + customInput); */
 
 		if (document.getElementById("custom-input").value !== "") {
 			let customValue = document
@@ -75,15 +91,19 @@ export const Sorting = props => {
 					return parseInt(val);
 				});
 
-			await setCustomInput(customValue);
-			setCustomArray(customInput);
-			console.log("the array: " + inputArray);
-			if (sortStyle !== "") {
-				enableButtons();
+			if (checkInput(customValue)) {
+				await setCustomInput(customValue);
+				setCustomArray(customInput);
+				if (sortStyle !== "") {
+					enableButtons();
+				}
+				Array.from(document.getElementsByClassName("bars")).forEach(bar => {
+					bar.style.backgroundColor = "blue";
+				});
+			} else {
+				document.getElementsByClassName("warning")[0].style.visibility =
+					"visible";
 			}
-			Array.from(document.getElementsByClassName("bars")).forEach(bar => {
-				bar.style.backgroundColor = "blue";
-			});
 		}
 	};
 
@@ -127,13 +147,6 @@ export const Sorting = props => {
 		if (sortStyle !== "") {
 			enableButtons();
 		}
-
-		/* Array.from(
-			document.getElementsByClassName("sorting")
-		)[0].style.minWidth = `${numArr.length * 8}px`;
-		Array.from(
-			document.getElementsByClassName("sorting")
-		)[0].style.maxWidth = `${numArr.length * 8}px`; */
 	};
 
 	const enableButtons = () => {
@@ -165,6 +178,7 @@ export const Sorting = props => {
 	const sort = () => {
 		if (numArr.length > 0 || inputArray.length > 0) {
 			disableButtons();
+			document.getElementById("custom-input").style.borderColor = "red";
 			switch (sortStyle) {
 				case "bubble":
 					bubble();
@@ -215,6 +229,7 @@ export const Sorting = props => {
 		document.getElementById("new-array-button").disabled = false;
 		document.getElementById("custom-input").disabled = false;
 		document.getElementById("submit-input").disabled = false;
+		document.getElementById("custom-input").style.borderColor = "green";
 	};
 
 	/* INSERTION SORT */
@@ -254,6 +269,7 @@ export const Sorting = props => {
 		document.getElementById("new-array-button").disabled = false;
 		document.getElementById("custom-input").disabled = false;
 		document.getElementById("submit-input").disabled = false;
+		document.getElementById("custom-input").style.borderColor = "green";
 	};
 	/* BUBBLE SORT */
 	const bubble = async () => {
@@ -298,6 +314,7 @@ export const Sorting = props => {
 		document.getElementById("new-array-button").disabled = false;
 		document.getElementById("custom-input").disabled = false;
 		document.getElementById("submit-input").disabled = false;
+		document.getElementById("custom-input").style.borderColor = "green";
 	};
 	/* SELECTION SORT */
 	const selection = async () => {
@@ -383,6 +400,7 @@ export const Sorting = props => {
 		document.getElementById("new-array-button").disabled = false;
 		document.getElementById("custom-input").disabled = false;
 		document.getElementById("submit-input").disabled = false;
+		document.getElementById("custom-input").style.borderColor = "green";
 	};
 
 	return (
@@ -415,21 +433,28 @@ export const Sorting = props => {
 						onChange={speedHandler}
 					></input>
 				</div>
-
-				<form className="custom-form" onSubmit={submitHandler}>
-					<input
-						id="custom-input"
-						type="text"
-						placeholder="Enter custom array here"
-						onChange={inputChangeHandler}
-					></input>
-					<button id="submit-input" type="submit">
-						Add
+				<div className="input-class">
+					<label htmlFor="input" className="warning">
+						Values should all be numeric and separated by a comma. Example:
+						1,2,3,4
+					</label>
+					<br></br>
+					<form className="custom-form" onSubmit={submitHandler}>
+						<input
+							name="input"
+							id="custom-input"
+							type="text"
+							placeholder="Enter custom array here"
+							onChange={inputChangeHandler}
+						></input>
+						<button id="submit-input" type="submit">
+							Add
+						</button>
+					</form>
+					<button id="reset-all" onClick={() => resetHandler()}>
+						Reset All
 					</button>
-				</form>
-				<button id="reset-all" onClick={() => resetHandler()}>
-					Reset All
-				</button>
+				</div>
 			</div>
 			{inputArray.length == 0
 				? numArr.map((num, index) => (
