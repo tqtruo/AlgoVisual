@@ -259,7 +259,7 @@ body {
 	padding: 1px 3px;
 	color: black;
 	width: 200px;
-	padding-right: 15px;
+	padding-right: 35px;
 }
 
 #custom-input:disabled {
@@ -270,7 +270,7 @@ body {
 	padding: 1px 3px;
 	color: black;
 	width: 200px;
-	padding-right: 15px;
+	padding-right: 35px;
 }
 
 #custom-input:focus {
@@ -280,7 +280,7 @@ body {
 	border: 2px 2px 2px 2px;
 	color: black;
 	width: 200px;
-	padding-right: 15px;
+	padding-right: 35px;
 }
 
 #custom-input:disabled:focus {
@@ -290,7 +290,7 @@ body {
 	border: 2px 2px 2px 2px;
 	color: black;
 	width: 200px;
-	padding-right: 15px;
+	padding-right: 35px;
 }
 
 #submit-input {
