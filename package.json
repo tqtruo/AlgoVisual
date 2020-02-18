@@ -5,9 +5,9 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js",
-		"build-watch": "webpack -w",
 		"heroku-prebuild": "npm install --dev",
-		"heroku-postbuild": "webpack -p"
+		"heroku-postbuild": "webpack -p",
+		"build-watch": "webpack -w"
 	},
 	"repository": {
 		"type": "git",
