@@ -35,6 +35,38 @@ body {
 	color: black;
 }
 
+h1 {
+	text-align: center;
+}
+.container {
+	position: absolute;
+	width: 50vw;
+	height: 50vh;
+	left: 25%;
+
+	/* 	background-color: white;
+	border-radius: 10px; */
+}
+
+.link-button {
+	margin: 3%;
+	width: 250px;
+	height: 150px;
+	font-size: 24px;
+	border-radius: 10px;
+	background-color: green;
+}
+
+.link-button:hover {
+	margin: 3%;
+	width: 250px;
+	height: 150px;
+	font-size: 24px;
+	border-radius: 10px;
+	background-color: rgb(72, 255, 56);
+	color: white;
+}
+
 .searching {
 	width: 100vw;
 	height: 100vh;
@@ -336,4 +368,23 @@ body {
 	margin: 1px 3px;
 	border-radius: 5px;
 	visibility: hidden;
+}
+
+img {
+	position: absolute;
+	left: 25%;
+	top: 25%;
+}
+
+#git-link {
+	position: absolute;
+	left: 15%;
+	top: 20%;
+}
+
+#git-link:hover {
+	position: absolute;
+	left: 15%;
+	top: 20%;
+	filter: brightness(200%);
 }
