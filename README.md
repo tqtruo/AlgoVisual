@@ -19,3 +19,5 @@ This is deployed on [Heroku](https://www.heroku.com/) at http://algovisual.herok
 * Redux
 * HTML5
 * CSS3
+* Express
+* Webpack
