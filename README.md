@@ -11,7 +11,7 @@ An application for visualizing algorithms - sorting, searching, etc.
 * npm run start
 
 # Deployment
-This is deployed on [Heroku](https://www.heroku.com/) at http://algovisual.herokuapp.com/
+This is deployed on [Heroku](https://www.heroku.com/) at https://algo-visualize.herokuapp.com
 
 # Built With
 * JavaScript
